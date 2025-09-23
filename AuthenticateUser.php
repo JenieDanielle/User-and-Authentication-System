@@ -65,4 +65,34 @@ class AuthenticateUser
     public function hashPassword($password) {
         return password_hash($password, PASSWORD_DEFAULT);
     }
+
+    public function loginUser(string $email, string $password){
+        foreach ($this->users as $user) {
+            if ($user['email'] === $email) {
+                if (password_verify($password, $user['password'])) {
+                    return "Login realizado com sucesso.";
+                }
+                return "Credenciais inválidas.";
+            } else {
+                return "Email não encontrado.";
+            }
+        }
+        return "Usuário não encontrado."; 
+    }
+
+    public function resetPassword($id, $newPassword) {
+        $checkPassword = $this->validatePassword($newPassword);
+        if ($checkPassword !== true) {
+            return $checkPassword;
+        }
+        
+        foreach ($this->users as $key => $user) {
+            if ($user['id'] === $id) {
+                $this->users[$key]['password'] = $this->hashPassword($newPassword);
+
+                return "Senha alterada com sucesso";
+            }
+        }
+        return "Usuário não encontrado.";
+    }
 }
