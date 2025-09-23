@@ -13,6 +13,15 @@ O código segue boas práticas: **PSR-12, KISS e DRY**.
 
 ---
 
+## Como executar
+1. Instale e configure o **XAMPP**.
+2. Copie este projeto para a pasta `htdocs` do XAMPP.
+3. Inicie o servidor Apache no painel do XAMPP.
+4. No navegador, acesse:
+`http://localhost/User-and-Authentication-System`
+5. Os exemplos de execução podem ser testados diretamente rodando os arquivos PHP no navegador.
+---
+
 ## Funcionalidades
 
 - Cadastro de novos usuários com id, nome, email e senha.  
@@ -22,6 +31,30 @@ O código segue boas práticas: **PSR-12, KISS e DRY**.
 - Login com verificação via `password_verify`.  
 - Reset de senha com atualização segura no array de usuários.  
 - Mensagens de retorno claras em caso de erros ou sucesso.  
+
+---
+
+## Casos de Uso Testados
+
+1. **Cadastro válido**
+- Entrada: `nome = Maria Oliveira`, `email = maria@email.com`, `senha = Senha123`
+- Resultado esperado: Usuário cadastrado com sucesso
+
+2. **Cadastro com e-mail inválido**
+- Entrada: `nome = Pedro`, `email = pedro@@email`, `senha = Senha123`
+- Resultado esperado: Erro → “E-mail inválido”
+
+3. **Tentativa de login com senha errada**
+- Entrada: `email = joao@email.com`, `senha = Errada123`
+- Resultado esperado: Erro → “Credenciais inválidas”
+
+4. **Reset de senha válido**
+- Entrada: `id = 1`, `nova senha = NovaSenha1`
+- Resultado esperado: Senha alterada com sucesso
+
+5. **Cadastro de usuário com e-mail duplicado**
+- Entrada: `email` já existente
+- Resultado esperado: Erro → “E-mail já está em uso”
 
 ---
 
@@ -37,6 +70,13 @@ O código segue boas práticas: **PSR-12, KISS e DRY**.
 - O método `verifyLoginPassword()` valida a senha digitada comparando com o hash salvo, retornando mensagens adequadas.  
 - O método `resetPassword()` redefine a senha de um usuário específico, aplicando as regras de validação e o hash.  
 - O projeto segue as boas práticas de código **PSR-12**, mantendo clareza e evitando repetições (**KISS e DRY**).  
+
+---
+
+## Limitações
+- Não há persistência em banco de dados (uso apenas de arrays em memória).
+- Interface simples (sem formulários HTML obrigatórios).
+- Projeto desenvolvido apenas em **PHP puro**, sem frameworks.
 
 ---
 
