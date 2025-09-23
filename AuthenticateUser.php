@@ -4,14 +4,20 @@ class AuthenticateUser
 {
     private array $users;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->users = [
-            ['id' => 1, 'nome' => 'João Silva', 'email' => 'joao@email.com',
-            'password' =>  password_hash('SenhaForte1', PASSWORD_DEFAULT)],
+            [
+                'id' => 1,
+                'nome' => 'João Silva',
+                'email' => 'joao@email.com',
+                'password' =>  password_hash('SenhaForte1', PASSWORD_DEFAULT)
+            ],
         ];
     }
 
-    public function newUser(string $nome, string $email, string $password) {
+    public function newUser(string $nome, string $email, string $password)
+    {
         $checkEmail = $this->validateEmail($email);
         if ($checkEmail !== true) {
             return $checkEmail;
@@ -36,7 +42,8 @@ class AuthenticateUser
         return "Usuário {$nome} cadastrado com sucesso!";
     }
 
-    public function validateEmail($email){
+    public function validateEmail($email)
+    {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return "Formato de email inválido.";
         }
@@ -46,11 +53,12 @@ class AuthenticateUser
                 return "Esse email já está cadastrado.";
             }
         }
-        
+
         return true;
     }
 
-    public function validatePassword($password) {
+    public function validatePassword($password)
+    {
         if (strlen($password) < 8) {
             return "A senha é muito curta. Minímo 8 caracteres.";
         } elseif (!preg_match("/[A-Z]/", $password)) {
@@ -62,11 +70,13 @@ class AuthenticateUser
         }
     }
 
-    public function hashPassword($password) {
+    public function hashPassword($password)
+    {
         return password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public function loginUser(string $email, string $password){
+    public function loginUser(string $email, string $password)
+    {
         $checkLoginEmail = $this->verifyLoginEmail($email);
         if ($checkLoginEmail !== true) {
             return $checkLoginEmail;
@@ -80,16 +90,18 @@ class AuthenticateUser
         return "Login efetuado com sucesso.";
     }
 
-    public function verifyLoginEmail($email) {
+    public function verifyLoginEmail($email)
+    {
         foreach ($this->users as $user) {
             if ($user['email'] === $email) {
                 return true;
-            } 
+            }
         }
         return "Email não encontrado.";
     }
 
-    public function verifyLoginPassword($email, $password) {
+    public function verifyLoginPassword($email, $password)
+    {
         foreach ($this->users as $user) {
             if ($user['email'] === $email) {
                 if (password_verify($password, $user['password'])) {
@@ -102,13 +114,13 @@ class AuthenticateUser
         return "Usuário não encontrado.";
     }
 
-
-    public function resetPassword($id, $newPassword) {
+    public function resetPassword($id, $newPassword)
+    {
         $checkPassword = $this->validatePassword($newPassword);
         if ($checkPassword !== true) {
             return $checkPassword;
         }
-        
+
         foreach ($this->users as $key => $user) {
             if ($user['id'] === $id) {
                 $this->users[$key]['password'] = $this->hashPassword($newPassword);
