@@ -7,7 +7,7 @@ class AuthenticateUser
     public function __construct(){
         $this->users = [
             ['id' => 1, 'nome' => 'João Silva', 'email' => 'joao@email.com',
-            'password' => 'SenhaForte1'],
+            'password' =>  password_hash('SenhaForte1', PASSWORD_DEFAULT)],
         ];
     }
 
@@ -67,18 +67,41 @@ class AuthenticateUser
     }
 
     public function loginUser(string $email, string $password){
+        $checkLoginEmail = $this->verifyLoginEmail($email);
+        if ($checkLoginEmail !== true) {
+            return $checkLoginEmail;
+        }
+
+        $checkLoginPassword = $this->verifyLoginPassword($email, $password);
+        if ($checkLoginPassword !== true) {
+            return $checkLoginPassword;
+        }
+
+        return "Login efetuado com sucesso.";
+    }
+
+    public function verifyLoginEmail($email) {
+        foreach ($this->users as $user) {
+            if ($user['email'] === $email) {
+                return true;
+            } 
+        }
+        return "Email não encontrado.";
+    }
+
+    public function verifyLoginPassword($email, $password) {
         foreach ($this->users as $user) {
             if ($user['email'] === $email) {
                 if (password_verify($password, $user['password'])) {
-                    return "Login realizado com sucesso.";
+                    return true;
+                } else {
+                    return "Credenciais incorretas.";
                 }
-                return "Credenciais inválidas.";
-            } else {
-                return "Email não encontrado.";
             }
         }
-        return "Usuário não encontrado."; 
+        return "Usuário não encontrado.";
     }
+
 
     public function resetPassword($id, $newPassword) {
         $checkPassword = $this->validatePassword($newPassword);
