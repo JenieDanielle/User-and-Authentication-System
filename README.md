@@ -15,11 +15,11 @@ O código segue boas práticas: **PSR-12, KISS e DRY**.
 
 ## 📂 Estrutura do Projeto
 
-/projeto
-├── index.php # Arquivo principal para executar os testes
-├── User.php # Classe que representa um usuário
-├── UserManager.php # Classe que gerencia usuários (cadastro, login, reset)
-└── Validator.php # Classe que valida dados (email e senha)
+/Projeto
+├── index.php         # Arquivo principal para executar os testes
+├── User.php          # Classe que representa um usuário
+├── UserManager.php   # Classe que gerencia usuários (cadastro, login, reset)
+└── Validator.php     # Classe que valida dados (email e senha)
 
 ## Como executar
 1. Instale e configure o **XAMPP**.
