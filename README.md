@@ -13,7 +13,7 @@ O código segue boas práticas: **PSR-12, KISS e DRY**.
 
 ---
 
-## 📂 Estrutura do Projeto
+## Estrutura do Projeto
 
 - **index.php**  
 - **User.php**  
@@ -29,7 +29,7 @@ O código segue boas práticas: **PSR-12, KISS e DRY**.
 5. Os exemplos de execução podem ser testados diretamente rodando os arquivos PHP no navegador.
 ---
 
-## ⚙️ Funcionalidades
+## Funcionalidades
 
 - **User** → representa um usuário com `id`, `nome`, `email` e `senha`.  
 - **Validator** → valida emails e senhas, além de aplicar `password_hash`.  
