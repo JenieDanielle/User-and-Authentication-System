@@ -13,6 +13,14 @@ O código segue boas práticas: **PSR-12, KISS e DRY**.
 
 ---
 
+## 📂 Estrutura do Projeto
+
+/projeto
+├── index.php # Arquivo principal para executar os testes
+├── User.php # Classe que representa um usuário
+├── UserManager.php # Classe que gerencia usuários (cadastro, login, reset)
+└── Validator.php # Classe que valida dados (email e senha)
+
 ## Como executar
 1. Instale e configure o **XAMPP**.
 2. Copie este projeto para a pasta `htdocs` do XAMPP.
@@ -22,16 +30,14 @@ O código segue boas práticas: **PSR-12, KISS e DRY**.
 5. Os exemplos de execução podem ser testados diretamente rodando os arquivos PHP no navegador.
 ---
 
-## Funcionalidades
+## ⚙️ Funcionalidades
 
-- Cadastro de novos usuários com id, nome, email e senha.  
-- Validação de email (formato correto e não duplicado).  
-- Validação de senha com regras de segurança.  
-- Senhas criptografadas com `password_hash`.  
-- Login com verificação via `password_verify`.  
-- Reset de senha com atualização segura no array de usuários.  
-- Mensagens de retorno claras em caso de erros ou sucesso.  
-
+- **User** → representa um usuário com `id`, `nome`, `email` e `senha`.  
+- **Validator** → valida emails e senhas, além de aplicar `password_hash`.  
+- **UserManager** → gerencia as operações do sistema:  
+  - Cadastro de usuários.  
+  - Login com verificação de credenciais.  
+  - Reset de senha.  
 ---
 
 ## Casos de Uso Testados
@@ -60,16 +66,13 @@ O código segue boas práticas: **PSR-12, KISS e DRY**.
 
 ## Observações
 
-- Cada usuário é representado como um array com: **id, nome, email e senha** (armazenada com `password_hash`).  
+- Agora cada usuário é representado por um **objeto da classe `User`**, em vez de array.  
 - O método `newUser()` cadastra um novo usuário, validando email e senha antes de salvar.  
-- O método `validateEmail()` verifica se o formato do email é válido e se não está duplicado.  
-- O método `validatePassword()` garante que a senha tenha pelo menos 8 caracteres, 1 letra maiúscula e 1 número.  
-- O método `hashPassword()` utiliza `password_hash` para armazenar senhas de forma segura.  
-- O método `loginUser()` faz a autenticação chamando os métodos `verifyLoginEmail()` e `verifyLoginPassword()`.  
-- O método `verifyLoginEmail()` verifica se o email informado existe no sistema.  
-- O método `verifyLoginPassword()` valida a senha digitada comparando com o hash salvo, retornando mensagens adequadas.  
-- O método `resetPassword()` redefine a senha de um usuário específico, aplicando as regras de validação e o hash.  
-- O projeto segue as boas práticas de código **PSR-12**, mantendo clareza e evitando repetições (**KISS e DRY**).  
+- O método `validateEmail()` garante formato válido e email não duplicado.  
+- O método `validatePassword()` exige no mínimo 8 caracteres, 1 letra maiúscula e 1 número.  
+- O método `hashPassword()` usa `password_hash` para segurança.  
+- O método `loginUser()` verifica credenciais usando `password_verify`.  
+- O método `resetPassword()` redefine a senha de forma validada e segura.  
 
 ---
 
